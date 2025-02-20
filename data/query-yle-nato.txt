@@ -1,0 +1,7 @@
+Yle News articles about "nato" scraped using Finnish Media Scrapers, https://github.com/hsci-r/finnish-media-scrapers
+See Github repo for workflow
+
+Query:
+fms-query-yle -f 2024-01-22 -t 2025-01-22 -o yle-nato.csv -q nato
+fms-fetch-open -i yle-nato.csv -o yle-nato
+fms-html-to-text-yle -o yle-nato-output yle-nato
