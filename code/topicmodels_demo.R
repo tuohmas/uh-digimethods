@@ -64,16 +64,20 @@ for (k in k_range) {
 
 # Inspect the properties of LDA model with 5 topics
 LDA_k15 <- readRDS("models/LDA_k15.rds")
+LDA_k40 <- readRDS("models/LDA_k40.rds")
 
 # Inspect word-topic (beta) and Document-topic (gamma) probabilities
-topic_words <- tidy(LDA_k15, matrix = "beta")
-topic_documents <- tidy(LDA_k15, matrix = "gamma")
+topic_words <- tidy(LDA_k40, matrix = "beta")
+topic_documents <- tidy(LDA_k40, matrix = "gamma")
 
 # Visualize top per-topic-per-word probabilities to inspect topics
 top_terms <- topic_words %>%
   group_by(topic) %>%
-  # filter(topic %in% c(1,2,3,4,5)) %>%
-  slice_max(beta, n = 15) %>%
+  # filter(topic %in% c(1:15)) %>%
+  # filter(topic %in% c(16:30)) %>%
+  filter(topic == 16) %>%
+  # filter(topic %in% c(31:40)) %>%
+  slice_max(beta, n = 50) %>%
   ungroup() %>%
   arrange(topic, -beta)
 
@@ -96,11 +100,10 @@ topic_documents <-
 top_documents <- topic_documents %>%
   group_by(topic) %>%
   # filter(topic %in% c(1,3)) %>% # Optional
-  slice_max(gamma, n = 15) %>%
+  filter(topic == 16, gamma > 0.3) %>%
+  slice_max(gamma, n = 50) %>%
   ungroup() %>%
   arrange(topic, -gamma)
-
-View(top_documents)
 
 top_documents %>%
   mutate(title = reorder_within(title, gamma, topic)) %>%
