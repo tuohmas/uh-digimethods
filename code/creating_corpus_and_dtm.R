@@ -17,7 +17,6 @@ options(max.print=999)
 sessionInfo()
 
 # Substitute with your text file directory, for example
-setwd(r"(Z:\tkjheikk_research\yle-ukraina-2022-output)")
 setwd(r"(Z:\tkjheikk_research\yle-nato-output)")
 
 # CREATE CORPUS FROM TEXT FILES  ###############################################
